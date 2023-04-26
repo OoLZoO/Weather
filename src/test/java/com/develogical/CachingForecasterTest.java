@@ -1,7 +1,8 @@
 package com.develogical;
 
-import com.teamoptimization.CachingForecasterClient;
+import com.teamoptimization.CachingForecaster;
 import com.teamoptimization.ForecasterClient;
+import com.teamoptimization.MetOfficeForecasterClient;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,12 +18,12 @@ public class CachingForecasterTest {
     @Test
     public void getsForecastFromDelegateIfNeverSeenBefore() throws IOException {
         ForecasterClient delegate = mock(ForecasterClient.class);
-        CachingForecasterClient.Forecast forecast = new CachingForecasterClient.Forecast(0, 16, "Generally clear but cold.");
+        MetOfficeForecasterClient.Forecast forecast = new MetOfficeForecasterClient.Forecast(0, 16, "Generally clear but cold.");
         given(delegate.forecast(DayOfWeek.WEDNESDAY, "Oxford")).willReturn(forecast);
 
         CachingForecaster cachingForecaster = new CachingForecaster(delegate);
 
-        CachingForecasterClient.Forecast actual = cachingForecaster.forecast(DayOfWeek.WEDNESDAY, "Oxford");
+        MetOfficeForecasterClient.Forecast actual = cachingForecaster.forecast(DayOfWeek.WEDNESDAY, "Oxford");
 
         assertThat(actual, equalTo(forecast));
         verify(delegate).forecast(DayOfWeek.WEDNESDAY, "Oxford");
