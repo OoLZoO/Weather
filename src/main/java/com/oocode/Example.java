@@ -8,6 +8,7 @@ import java.time.DayOfWeek;
 
 public class Example {
     public static void main(String[] args) throws IOException {
+//        args = new String[]{"Monday", "London"};
         if (args.length != 2) {
             throw new RuntimeException("Must specify Day and Place");
         }
